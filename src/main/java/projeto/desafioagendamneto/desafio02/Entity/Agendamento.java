@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,4 +30,11 @@ public class Agendamento {
     private String messagem;
     private String  remetente_nome;
     private StatusAgendamento statusAgendamento;
+
+
+    @PrePersist
+    private void prePersist(){
+       this.dataHAgendamento = LocalDateTime.now();
+       this.statusAgendamento = StatusAgendamento.AGENDADO;
+    }
 }
